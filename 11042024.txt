@@ -1,0 +1,19 @@
+select distinct
+nom_ua as Materia,
+cal_dkd as Calificacion,
+nom_doc as NombreDocente
+from mdocente as md
+inner join dkardex as dk
+on (md.num_doc = dk.num_doc)
+inner join mmpacurricular as mapa 
+on (mapa.id_mx = dk.id_mc)
+inner join munidaddeaprendizaje as mu 
+on (mu.cla_ua = mapa.cla_ua)
+
+/*producto cartesiano*/
+(select nom_doc, nom_ua
+from mdocente
+full outer join munidaddeaprendizaje) as todos 
+
+/*para agrupar*/
+select count (nom_ua) from munidaddeaprendizaje
